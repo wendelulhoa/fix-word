@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+    <title>fix word</title>
+  </head>
+  <body style="background-color: antiquewhite;">
+    <div class="col-8 m-auto">
+        <div class="pt-5">
+        
+            
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Digite ou cole as palavras</label>
+                <div class="pl-5 pb-2">
+                    <button class="btn btn-primary btn-sm" id="oneWordUpperCase" type="submit">Primeira palavra maiúsculas</button>
+                    <button class="btn btn-primary btn-sm" id="uppercase" type="submit">Todas palavras em maiúscula</button>
+                    <button class="btn btn-primary btn-sm" id ="lowercase"  type="submit">Todas palavras em minúsculas</button>
+                    <button class="btn btn-primary btn-sm" id="copy" type="submit">Copiar</button>
+                    <button class="btn btn-primary btn-sm" id="paste" type="submit">Colar</button>
+                    <button class="btn btn-primary btn-sm" id="clear" type="submit">Limpar</button>
+                </div>
+                <textarea class="form-control" id="text-area" rows="5"></textarea>
+            </div>
+        </div>    
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function convertOneWordUpperCase(data)
+        {
+            var teste = data;
+            data = data.split("\n");
+            var result = []; 
+            
+            for(i = 0; data.length > i; i++){
+                var str         = data[i];
+                var capitalized = str[0].toUpperCase() + str.substr(1); 
+                result.push(capitalized);
+            }
+           return result;
+        }
+        $('button').click(function(){
+            switch($(this).attr('id')){
+                case 'uppercase':
+                    result = $('#text-area').val().toUpperCase();
+                    $('#text-area').val(result);
+                break;
+                case 'lowercase':
+                    result = $('#text-area').val().toLowerCase();
+                    $('#text-area').val(result);
+                break;
+                case 'oneWordUpperCase':
+                    result = $('#text-area').val()
+                    result = convertOneWordUpperCase(result);
+                    result = result.join(' ');
+                    $('#text-area').val(result)
+                break;
+                case 'copy':
+                    navigator.clipboard.writeText($('#text-area').val());
+                break;
+                case 'paste':
+                    navigator.clipboard.readText().then((data)=> {
+                        $('#text-area').val(data);
+                    });
+                break;
+                case 'clear':
+                    $('#text-area').val('');
+                break;
+            }
+        }); 
+    </script>
+  </body>
+</html>
